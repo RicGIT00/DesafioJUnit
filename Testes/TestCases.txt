@@ -22,3 +22,40 @@ Classe JulgamentoPrisioneiro {
                 }
      }
 }
+
+# (3º) Inicialmente na primeira execução do teste criado para condenação mútua:
+   
+   @Test
+	public void testCondenacaoMutua() {
+		String respPrisioneiroA = "Culpado";
+		String respPrisioneiroB = "Culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(5, pena);
+	}
+   
+   
+É verificado que por conta do método calculaPena() escrito em Java esperar dois parametros do tipo Resposta, não é possível executar o teste, ocorrendo o seguinte erro: 
+	The method calculaPena(Resposta, Resposta) from the type JulgamentoPrisioneiro refers to the missing type Resposta
+   
+Para a solução do mesmo, foi alterado no método calculaPena() os tipos do parametro e na comparação das condições como segue abaixo:
+
+	   public int calculaPena(String respostaPrisioneiroA, String respostaPrisioneiroB) {
+	      if (respostaPrisioneiroA .equalsIgnoreCase("Culpado")) {
+	          if (respostaPrisioneiroB.equalsIgnoreCase("Culpado")) {
+	            return PENA_CONDENACAO_MUTUA;
+	          } else {
+	                 return PENA_CONDENACAO_INDIVIDUAL;
+	                 }
+	       } else {
+	                if (respostaPrisioneiroB.equalsIgnoreCase("Culpado")) {
+	                    return PENA_CONDENACAO_CUMPLICES;
+	                } else {
+	                         return PENA_INOCENCIA;
+	                        }
+	                }
+	   }
+      
