@@ -99,3 +99,19 @@ Onde o valor do teste esperado era 1 mas o valor foi 11, solucionado alterando o
 private int PENA_CONDENACAO_CUMPLICES = 1;
 
 Rodou com sucesso
+
+#Rodando o teste para pena inocencia
+
+@Test
+	public void testPenaInocencia() {
+		String respPrisioneiroA = "Nao culpado";
+		String respPrisioneiroB = "Nao Culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(0, pena);
+	}
+
+Rodou com sucesso sem erros.
