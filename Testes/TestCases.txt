@@ -115,3 +115,94 @@ Rodou com sucesso
 	}
 
 Rodou com sucesso sem erros.
+
+# Relatório Final com Testes e Classe:
+
+package classes;
+
+public class JulgamentoPrisioneiro {
+	private int PENA_INOCENCIA = 0;
+	private int PENA_CONDENACAO_MUTUA = 5;
+	private int PENA_CONDENACAO_INDIVIDUAL = 10;
+	private int PENA_CONDENACAO_CUMPLICES = 1;
+
+	   public int calculaPena(String respostaPrisioneiroA, String respostaPrisioneiroB) {
+	      if (respostaPrisioneiroA .equalsIgnoreCase("Culpado")) {
+	          if (respostaPrisioneiroB.equalsIgnoreCase("Culpado")) {
+	            return PENA_CONDENACAO_MUTUA;
+	          } else {
+	                 return PENA_CONDENACAO_INDIVIDUAL;
+	                 }
+	       } else {
+	                if (respostaPrisioneiroB.equalsIgnoreCase("Culpado")) {
+	                    return PENA_CONDENACAO_CUMPLICES;
+	                } else {
+	                         return PENA_INOCENCIA;
+	                        }
+	                }
+	   }
+	   
+}
+
+
+Testes:
+
+package junittests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import classes.JulgamentoPrisioneiro;
+
+class JulgamentoPrisioneiroTest {
+
+
+	@Test
+	public void testCondenacaoMutua() {
+		String respPrisioneiroA = "Culpado";
+		String respPrisioneiroB = "Culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(5, pena);
+	}
+	
+	@Test
+	public void testCondenacaoIndividual() {
+		String respPrisioneiroA = "Culpado";
+		String respPrisioneiroB = "Nao culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(10, pena);
+	}
+
+	@Test
+	public void testCondenacaoCumplices() {
+		String respPrisioneiroA = "Nao culpado";
+		String respPrisioneiroB = "Culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(1, pena);
+	}
+	
+	@Test
+	public void testPenaInocencia() {
+		String respPrisioneiroA = "Nao culpado";
+		String respPrisioneiroB = "Nao Culpado";
+		
+		JulgamentoPrisioneiro JulgP = new JulgamentoPrisioneiro();
+		
+		int pena = JulgP.calculaPena(respPrisioneiroA, respPrisioneiroB);
+		
+		assertEquals(0, pena);
+	}
+}
